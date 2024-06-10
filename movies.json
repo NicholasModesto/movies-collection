@@ -1,11 +1,49 @@
 {
     "movies": [
-         { "title": "The Godfather", "format": "dvd", "notes": "Classic mafia movie" },
-         { "title": "The Shawshank Redemption", "format": "br", "notes": "Great story of hope and friendship" },
-         { "title": "Schindler's List", "format": "dvd", "notes": "Historical drama" },
-         { "title": "Raging Bull", "format": "dvd", "notes": "Biographical sports drama" },
-         { "title": "Casablanca", "format": "dvd", "notes": "Classic romantic drama" },
-         { "title": "The Godfather Part II", "format": "dvd", "notes": "Sequel to The Godfather" },
-         { "title": "Gone with the Wind", "format": "dvd", "notes": "Epic historical romance" },
+        {
+            "title": "The Shawshank Redemption",
+            "format": "DVD",
+            "notes": ""
+        },
+        {
+            "title": "The Godfather",
+            "format": "Blu-ray",
+            "notes": ""
+        },
+        {
+            "title": "The Godfather: Part II",
+            "format": "DVD",
+            "notes": ""
+        },
+        {
+            "title": "The Dark Knight",
+            "format": "Blu-ray",
+            "notes": ""
+        },
+        {
+            "title": "12 Angry Men",
+            "format": "DVD",
+            "notes": ""
+        },
+        {
+            "title": "Schindler's List",
+            "format": "DVD",
+            "notes": ""
+        },
+        {
+            "title": "Pulp Fiction",
+            "format": "Blu-ray",
+            "notes": ""
+        },
+        {
+            "title": "The Lord of the Rings: The Return of the King",
+            "format": "DVD",
+            "notes": ""
+        },
+        {
+            "title": "The Good, the Bad and the Ugly",
+            "format": "DVD",
+            "notes": ""
+        },
     ]
 }

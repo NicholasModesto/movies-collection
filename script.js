@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 movieList = sortMoviesByTitle(data);
                 displayMovies(movieList);
                 });
-            });
     }
 
     

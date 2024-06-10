@@ -1,14 +1,11 @@
 {
     "movies": [
-        {
-            "title": "The Shawshank Redemption",
-            "year": 1994,
-            "format": "bluray"
-        },
-        {
-            "title": "The Godfather",
-            "year": 1972,
-            "format": "dvd"
-        }
+         { "title": "The Godfather", "format": "dvd", "notes": "Classic mafia movie" },
+         { "title": "The Shawshank Redemption", "format": "br", "notes": "Great story of hope and friendship" },
+         { "title": "Schindler's List", "format": "dvd", "notes": "Historical drama" },
+         { "title": "Raging Bull", "format": "dvd", "notes": "Biographical sports drama" },
+         { "title": "Casablanca", "format": "dvd", "notes": "Classic romantic drama" },
+         { "title": "The Godfather Part II", "format": "dvd", "notes": "Sequel to The Godfather" },
+         { "title": "Gone with the Wind", "format": "dvd", "notes": "Epic historical romance" },
     ]
 }

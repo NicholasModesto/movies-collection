@@ -24,14 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('movies.json')
             .then(response => response.json())
             .then(data => {
-                movieList = sortMoviesByTitle(data);
-                displayMovies(movieList);
+                //movieList = sortMoviesByTitle(data);
+                displayMovies(data);
                 });
     }
 
-    
     function displayMovies(movies) {
-        movieTable.innerHTML = '';
+        movieList.innerHTML = '';
         movies.forEach(movie => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${movie.format}</td>
                 <td>${movie.notes}</td>
             `;
-            movieTable.appendChild(row);
+            movieList.appendChild(row);
         });
     }
 
@@ -50,8 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return titleA.localeCompare(titleB);
         });
     }
-
-
     
     function addMovie(event) {
         event.preventDefault();
@@ -111,5 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     movieForm.addEventListener('submit', addMovie);
+    
     fetchMovies();
 });

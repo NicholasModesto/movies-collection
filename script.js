@@ -1,36 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const movieList = document.getElementById('movie-list');
-    const movieForm = document.getElementById('movie-form');
-    
-    // function fetchMovies() {
-    //     fetch('movies.json')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             movieList.innerHTML = '';
-    //             data.movies.forEach(movie => {
-    //                 const movieDiv = document.createElement('div');
-    //                 movieDiv.className = 'movie';
-    //                 movieDiv.innerHTML = `
-    //                     <h2>${movie.title}</h2>
-    //                     <p>${movie.format}</p>
-    //                     <p>${movie.notes}</p>
-    //                 `;
-    //                 movieList.appendChild(movieDiv);
-    //             });
-    //         });
-    // }
-
-    function fetchMovies() {
-        fetch('movies.json')
-            .then(response => response.json())
-            .then(data => {
-                //movieList = sortMoviesByTitle(data);
-                displayMovies(data);
-                });
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const movieTable = document.getElementById('movie-list');
 
     function displayMovies(movies) {
-        movieList.innerHTML = '';
+        movieTable.innerHTML = '';
         movies.forEach(movie => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -38,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${movie.format}</td>
                 <td>${movie.notes}</td>
             `;
-            movieList.appendChild(row);
+            movieTable.appendChild(row);
         });
     }
 
@@ -49,65 +21,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return titleA.localeCompare(titleB);
         });
     }
-    
-    function addMovie(event) {
-        event.preventDefault();
-        const title = document.getElementById('title').value;
-        const format = document.getElementById('format').value;
-        const notes = document.getElementById('notes').value;
 
-        fetch('movies.json')
-            .then(response => response.json())
-            .then(data => {
-                const newMovie = { title, format, notes };
-                data.movies.push(newMovie);
-                
-                updateMoviesJson(data.movies);
-            });
+    async function fetchMovies() {
+        try {
+            const response = await fetch('https://spreadsheets.google.com/feeds/list/1dlPnmIyduK_qcAziuLkWEfEoTCUAu3aK/od6/public/values?alt=json');
+            const data = await response.json();
+            const movies = data.feed.entry.map(entry => ({
+                title: entry.gsx$title.$t,
+                format: entry.gsx$format.$t,
+                notes: entry.gsx$notes.$t
+            }));
+            const sortedMovies = sortMoviesByTitle(movies);
+            displayMovies(sortedMovies);
+        } catch (error) {
+            console.error('Error fetching movie data:', error);
+        }
     }
 
-    function updateMoviesJson(movies) {
-        const githubUsername = 'your-username';
-        const repoName = 'movie-collection';
-        const branch = 'main';
-        const token = 'your-personal-access-token';
-
-        fetch(`https://api.github.com/repos/${githubUsername}/${repoName}/contents/movies.json`, {
-            headers: {
-                Authorization: `token ${token}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const sha = data.sha;
-            const content = btoa(JSON.stringify({ movies }));
-
-            const updateContent = {
-                message: 'Update movies.json',
-                content: content,
-                sha: sha,
-                branch: branch
-            };
-
-            return fetch(`https://api.github.com/repos/${githubUsername}/${repoName}/contents/movies.json`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updateContent)
-            });
-        })
-        .then(response => {
-            if (response.ok) {
-                fetchMovies();
-            } else {
-                alert('Failed to update movies.json');
-            }
-        });
-    }
-
-    movieForm.addEventListener('submit', addMovie);
-    
     fetchMovies();
 });

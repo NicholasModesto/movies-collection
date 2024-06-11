@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchMovies() {
         try {
-            const response = await fetch('https://spreadsheets.google.com/feeds/list/1dlPnmIyduK_qcAziuLkWEfEoTCUAu3aK/od6/public/values?alt=json');
+            // const response = await fetch('https://spreadsheets.google.com/feeds/list/1dlPnmIyduK_qcAziuLkWEfEoTCUAu3aK/od6/public/values?alt=json');
+            const response = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1dlPnmIyduK_qcAziuLkWEfEoTCUAu3aK/values/');
             const data = await response.json();
             const movies = data.feed.entry.map(entry => ({
                 title: entry.gsx$title.$t,
@@ -40,3 +41,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchMovies();
 });
+
+

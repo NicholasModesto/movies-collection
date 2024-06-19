@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 moviesCollection.movies.push(movie);
             });
 
-            const sortedMovies = sortMoviesByTitle(moviesCollection);
+            const sortedMovies = sortMoviesByTitle(moviesCollection.movies);
             displayMovies(sortedMovies);
 
         } catch (error) {

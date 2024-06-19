@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch(url);
-                console.log("dev: fetch success")
+                //console.log("dev: fetch success")
             const data = await response.json();
-                console.log ("dev: " + JSON.stringify(data));
+                //console.log ("dev: " + JSON.stringify(data));
             
             const moviesCollection = { movies: [] };
             

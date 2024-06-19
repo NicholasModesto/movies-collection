@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchMovies() {
         const apiKey = 'AIzaSyD0NTvju2gQOz-RlnmQdoR00cSvP-iRnw4';
+
+// TODO update sheetID
+// TODO consolidate music stuff
+
         const sheetId = '12ahIyxGW0R32JIzTV99xi_zVkgX4e4uMF9xdLw3b0ZQ';
         const range = 'Sheet1!A2:C1000';
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;

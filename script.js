@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(url);
                 console.log("dev: fetch success")
             const data = await response.json();
-                console.log ("dev: " + data);
+                console.log ("dev: " + JSON.stringify(data));
             const movies = data.feed.entry.map(entry => ({
                 title: entry.gsx$title.$t,
                 format: entry.gsx$format.$t,

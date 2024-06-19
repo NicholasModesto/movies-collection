@@ -33,11 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("dev: fetch success")
             const data = await response.json();
                 console.log ("dev: " + JSON.stringify(data));
-            const movies = data.feed.entry.map(entry => ({
-                title: entry.gsx$title.$t,
-                format: entry.gsx$format.$t,
-                notes: entry.gsx$notes.$t
-            }));
+            
+            const moviesCollection = { movies: [] };
+            
+            data.values.forEach(entry => {
+                // Create a new movie object with appropriate fields
+                const movie = {
+                    title: entry[0] || "",         // Title is the first item
+                    format: entry[1] || "",        // Format is the second item
+                    notes: entry[2] || ""          // Notes is the third item (if available)
+                };
+                // Push the movie object into the moviesCollection array
+                moviesCollection.movies.push(movie);
+            });
+
+            }
             const sortedMovies = sortMoviesByTitle(movies);
             displayMovies(sortedMovies);
         } catch (error) {

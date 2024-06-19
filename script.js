@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Push the movie object into the moviesCollection array
                 moviesCollection.movies.push(movie);
             });
-
-            }
+            
+            }));
             const sortedMovies = sortMoviesByTitle(movies);
             displayMovies(sortedMovies);
         } catch (error) {

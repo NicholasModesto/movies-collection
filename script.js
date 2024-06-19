@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     format: entry[1] || "",        // Format is the second item
                     notes: entry[2] || ""          // Notes is the third item (if available)
                 };
-                // Push the movie object into the moviesCollection array
+                // Push the movie object into the transformedData array
                 moviesCollection.movies.push(movie);
             });
-            
-            }));
-            const sortedMovies = sortMoviesByTitle(movies);
+
+            const sortedMovies = sortMoviesByTitle(moviesCollection);
             displayMovies(sortedMovies);
+
         } catch (error) {
             console.error('Error fetching movie data:', error);
         }

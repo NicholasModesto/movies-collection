@@ -16,21 +16,12 @@ table {
     width: 90%;
     margin: 0 auto;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
 th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
-}
-
-th.title {
-    width:45%;
-}
-
-th.format {
-    width:15%;
 }
 
 #filter-input {

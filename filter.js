@@ -6,7 +6,7 @@ function filter(){
   const query = document.querySelector("input").value.toLowerCase();
   const rows = table.rows;  
 
-  if(query.length <3) return;  // optional parameter
+  //if(query.length <3) return;  // optional parameter
   
   for (let z=1 ; z<rows.length ; z++)
     {

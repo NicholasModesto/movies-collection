@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${movie.title}</td>
                 <td>${movie.format}</td>
-                <td>${movie.notes}</td>
             `;
             movieTable.appendChild(row);
         });

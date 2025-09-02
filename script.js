@@ -5,16 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
         movieTable.innerHTML = '';
         movies.forEach(movie => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${movie.title}</td>
-                <td>${movie.format}</td>
-            `;
+
+            const titleCell = document.createElement('td');
+            titleCell.textContent = movie.title;
+
+            const formatCell = document.createElement('td');
+            formatCell.textContent = movie.format;
+
+            row.appendChild(titleCell);
+            row.appendChild(formatCell);
             movieTable.appendChild(row);
         });
     }
 
     function sortMoviesByTitle(movies) {
-        return movies.sort((a, b) => {
+        return [...movies].sort((a, b) => {
             const titleA = a.title.replace(/^The\\s+/i, '');
             const titleB = b.title.replace(/^The\\s+/i, '');
             return titleA.localeCompare(titleB);
@@ -29,18 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status} ${response.statusText}`);
+            }
             const data = await response.json();
-            
+
+            if (!data || !Array.isArray(data.values)) {
+                console.warn('No data received from the sheet.');
+                displayMovies([]);
+                return;
+            }
+
             const moviesCollection = { movies: [] };
-            
+
             data.values.forEach(entry => {
-                // Create a new movie object with appropriate fields
                 const movie = {
-                    title: entry[0] || "",         // Title is the first item
-                    format: entry[1] || "",        // Format is the second item
-                    notes: entry[2] || ""          // Notes is the third item (if available)
+                    title: entry[0] || "",
+                    format: entry[1] || "",
+                    notes: entry[2] || ""
                 };
-                // Push the movie object into the transformedData array
                 moviesCollection.movies.push(movie);
             });
 

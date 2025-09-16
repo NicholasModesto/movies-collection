@@ -37,36 +37,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchMovies() {
-        const apiKey = 'AIzaSyD0NTvju2gQOz-RlnmQdoR00cSvP-iRnw4';
         const sheetId = '12ahIyxGW0R32JIzTV99xi_zVkgX4e4uMF9xdLw3b0ZQ';
-        const range = 'Sheet1!A2:C1000';
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+        const sheetName = 'Sheet1';
+        const range = 'A2:C1000';
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=${encodeURIComponent(range)}`;
 
         try {
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status} ${response.statusText}`);
             }
-            const data = await response.json();
 
-            if (!data || !Array.isArray(data.values)) {
+            const text = await response.text();
+            const match = text.match(/google\.visualization\.Query\.setResponse\((.*)\);/s);
+            if (!match) {
+                throw new Error('Unexpected response format from Google Sheets.');
+            }
+
+            const payload = JSON.parse(match[1]);
+            const rows = payload?.table?.rows;
+            if (!Array.isArray(rows)) {
                 console.warn('No data received from the sheet.');
                 displayMovies([]);
                 return;
             }
 
-            const moviesCollection = { movies: [] };
+            const moviesCollection = rows.map(entry => ({
+                title: entry.c?.[0]?.v || "",
+                format: entry.c?.[1]?.v || "",
+                notes: entry.c?.[2]?.v || ""
+            }));
 
-            data.values.forEach(entry => {
-                const movie = {
-                    title: entry[0] || "",
-                    format: entry[1] || "",
-                    notes: entry[2] || ""
-                };
-                moviesCollection.movies.push(movie);
-            });
-
-            const sortedMovies = sortMoviesByTitle(moviesCollection.movies);
+            const sortedMovies = sortMoviesByTitle(moviesCollection);
             displayMovies(sortedMovies);
 
         } catch (error) {

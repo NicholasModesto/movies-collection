@@ -26,6 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function showError(message) {
+        movieTable.innerHTML = '';
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 2;
+        cell.textContent = message;
+        row.appendChild(cell);
+        movieTable.appendChild(row);
+    }
+
     async function fetchMovies() {
         const apiKey = 'AIzaSyD0NTvju2gQOz-RlnmQdoR00cSvP-iRnw4';
         const sheetId = '12ahIyxGW0R32JIzTV99xi_zVkgX4e4uMF9xdLw3b0ZQ';
@@ -61,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error fetching movie data:', error);
+            showError('Sorry, we could not load the movie list. Please refresh to try again.');
         }
     }
 

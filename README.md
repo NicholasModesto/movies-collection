@@ -6,3 +6,4 @@ Simple static web app that displays a movie collection from a Google Sheet, with
 - Fetches rows from a Google Sheet (Title, Format, Notes)
 - Sorts by title (ignores leading "The")
 - Debounced search filter across Title and Format
+- Inline error message if the spreadsheet cannot be reached
